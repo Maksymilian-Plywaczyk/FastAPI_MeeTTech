@@ -4,7 +4,7 @@ from fastapi import FastAPI, status, HTTPException, Body
 
 from .schemas import Pizza, PizzaCreate
 
-app = FastAPI()
+app = FastAPI(title="Pizza delivery API")
 
 pizza_database = {
     1: {
