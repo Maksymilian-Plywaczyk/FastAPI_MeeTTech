@@ -3,20 +3,26 @@ from enum import Enum
 
 
 class PizzaType(str, Enum):
-    margherita: str = "MARGHERITA"
-    peperoni: str = "PEPERONI"
-    capricciosa: str = "CAPRICCIOSA"
+    MARGHERITA: str = "MARGHERITA"
+    PEPPERONI: str = "PEPPERONI"
+    CAPRICCIOSA: str = "CAPRICCIOSA"
 
 
 class PizzaSize(str, Enum):
-    small: str = "S"
-    medium: str = "M"
-    large: str = "L"
+    SMALL: str = "S"
+    MEDIUM: str = "M"
+    LARGE: str = "L"
+
+
+class PizzaStatus(str, Enum):
+    DONE: str = "Done"
+    UNDONE: str = "Undone"
 
 
 class PizzaBase(BaseModel):
     pizza_type: PizzaType
     size: PizzaSize
+    additional_info: str | None = None
 
 
 class PizzaCreate(PizzaBase):
@@ -27,6 +33,7 @@ class Pizza(PizzaBase):
     pizza_id: int
     price: float
     user_id: int
+    status: str = PizzaStatus.UNDONE.value
 
 
 class Message(BaseModel):
