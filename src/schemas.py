@@ -36,5 +36,9 @@ class Pizza(PizzaBase):
     status: str = PizzaStatus.UNDONE.value
 
 
-class Message(BaseModel):
-    message: str
+class User(BaseModel):
+    id: int
+    fullname: str
+    email: str
+    hashed_password: str
+    pizzas: list[Pizza]

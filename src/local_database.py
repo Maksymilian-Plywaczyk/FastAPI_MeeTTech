@@ -48,15 +48,17 @@ pizza_database = [
 
 user_database = [
     {
+        "id": 1,
         "fullname": "User1",
         "email": "user1@example.com",
-        "password": "",
+        "hashed_password": "$2b$12$2DPOBDt3BJJtI2VHoc.izeO3en2E.V0TVxls.v3oe2yYktQGjwjjG",
         "pizzas": [],
     },
     {
+        "id": 2,
         "fullname": "User2",
         "email": "user2@example.com",
-        "password": "",
+        "hashed_password": "$2b$12$gWcJR.pnzMITQ22e.uKQZeQcUN5rbcwvUvDK3h./i9tTc8C6tDdyq",
         "pizzas": [],
     },
 ]
