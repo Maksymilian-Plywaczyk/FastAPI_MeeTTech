@@ -12,11 +12,11 @@ app = FastAPI(title="Pizza delivery API")
 app.include_router(auth_route)
 
 
-@app.get("/pizzas/", status_code=status.HTTP_200_OK, response_model=Pizza)
+@app.get("/pizzas/{pizza_id}", status_code=status.HTTP_200_OK, response_model=Pizza)
 def get_pizza(pizza: Annotated[Pizza, Depends(get_pizza_by_id)]):
     try:
         return pizza
-    except TypeError:
+    except HTTPException:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="That pizza is not in our database!",
@@ -24,12 +24,12 @@ def get_pizza(pizza: Annotated[Pizza, Depends(get_pizza_by_id)]):
 
 
 @app.get(
-    "/{user_id}/pizzas/", status_code=status.HTTP_200_OK, response_model=list[Pizza]
+    "/pizzas/", status_code=status.HTTP_200_OK, response_model=list[Pizza]
 )
 def get_user_pizzas(user: Annotated[User, Depends(get_user)]):
     try:
         return list(filter(lambda pizza: pizza["user_id"] == user.id, pizza_database))
-    except TypeError:
+    except HTTPException:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
         )
@@ -45,7 +45,7 @@ def create_pizza(pizza_create: PizzaCreate, user: Annotated[User, Depends(get_us
         )
         pizza_database.append(new_pizza)
         return new_pizza
-    except Exception:
+    except HTTPException:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Something went wrong",
