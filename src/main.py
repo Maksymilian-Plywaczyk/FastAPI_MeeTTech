@@ -14,25 +14,12 @@ app.include_router(auth_route)
 
 @app.get("/pizzas/{pizza_id}", status_code=status.HTTP_200_OK, response_model=Pizza)
 def get_pizza(pizza: Annotated[Pizza, Depends(get_pizza_by_id)]):
-    try:
-        return pizza
-    except HTTPException:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="That pizza is not in our database!",
-        )
+    return pizza
 
 
-@app.get(
-    "/pizzas/", status_code=status.HTTP_200_OK, response_model=list[Pizza]
-)
+@app.get("/pizzas/", status_code=status.HTTP_200_OK, response_model=list[Pizza])
 def get_user_pizzas(user: Annotated[User, Depends(get_user)]):
-    try:
-        return list(filter(lambda pizza: pizza["user_id"] == user.id, pizza_database))
-    except HTTPException:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
-        )
+    return list(filter(lambda pizza: pizza["user_id"] == user.id, pizza_database))
 
 
 @app.post("/pizzas/", status_code=status.HTTP_201_CREATED, response_model=Pizza)
@@ -45,7 +32,7 @@ def create_pizza(pizza_create: PizzaCreate, user: Annotated[User, Depends(get_us
         )
         pizza_database.append(new_pizza)
         return new_pizza
-    except HTTPException:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Something went wrong",
@@ -54,22 +41,12 @@ def create_pizza(pizza_create: PizzaCreate, user: Annotated[User, Depends(get_us
 
 @app.put("/pizzas/{pizza_id}", status_code=status.HTTP_200_OK)
 def update_status_pizza(pizza: Annotated[Pizza, Depends(get_user_pizza_by_id)]):
-    try:
-        index_pizza = pizza_database.index(pizza.dict())
-        pizza_database[index_pizza]["status"] = PizzaStatus.DONE.value
-        return {"message": f"Successfully update pizza with id {pizza.pizza_id}"}
-    except TypeError:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Something went wrong"
-        )
+    index_pizza = pizza_database.index(pizza.dict())
+    pizza_database[index_pizza]["status"] = PizzaStatus.DONE.value
+    return {"message": f"Successfully update pizza with id {pizza.pizza_id}"}
 
 
 @app.delete("/pizzas/", status_code=status.HTTP_204_NO_CONTENT)
 def delete_user_pizza(pizza: Annotated[Pizza, Depends(get_user_pizza_by_id)]):
-    try:
-        pizza_database.remove(pizza.dict())
-        return None
-    except TypeError:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Something went wrong"
-        )
+    pizza_database.remove(pizza.dict())
+    return None
