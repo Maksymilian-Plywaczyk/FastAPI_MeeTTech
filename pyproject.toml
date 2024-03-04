@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "fastapi-meettech"
+version = "0.1.0"
+description = ""
+authors = ["Maksymilian Pływaczyk <plywak12331@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.110.0"
+pytest = "^8.0.2"
+ruff = "^0.3.0"
+uvicorn = "^0.27.1"
+passlib = "^1.7.4"
+python-multipart = "^0.0.9"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
