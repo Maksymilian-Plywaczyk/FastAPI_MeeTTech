@@ -6,8 +6,8 @@ This repository represent demo app for MeeTTech presentation. The main idea is t
 2. Using docker compose:\
     Build your services: `docker compose build -f compose.yaml`
     Run your services: `docker compose up` alternatively you can add flag `-d` like: `docker compose up -d` to run services in the background 
-4. Using virtual environment:\
-    Create venv: `python -m venv venv`\
-    Launch your venv (using Windows): `venv/Scripts/activate` or using Mac/Linux `source venv/bin/activate`\
-    Install dependencies: `pip install -r requirements.txt`
+4. Using poetry:\
+    Configurate poetry on your machine: https://python-poetry.org/docs/ \\
+    Install dependencies: `poetry install`\
+    Launch your venv (using poetry): `poetry shell`\
     Start your app (development mode) in `src` folder: `uvicorn main:app --reload`
