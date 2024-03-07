@@ -1,4 +1,5 @@
 import random
+import uuid
 from typing import Annotated
 
 from fastapi import FastAPI, status, HTTPException, Depends
@@ -19,22 +20,22 @@ def get_pizza(pizza: Annotated[Pizza, Depends(get_pizza_by_id)]):
 
 @app.get("/pizzas/", status_code=status.HTTP_200_OK, response_model=list[Pizza])
 def get_user_pizzas(user: Annotated[User, Depends(get_user)]):
-    return list(filter(lambda pizza: pizza["user_id"] == user.id, pizza_database))
+    return [pizza for pizza in pizza_database if pizza["user_id"] == user.id]
 
 
 @app.post("/pizzas/", status_code=status.HTTP_201_CREATED, response_model=Pizza)
 def create_pizza(pizza_create: PizzaCreate, user: Annotated[User, Depends(get_user)]):
     try:
-        pizza_id = random.randint(0, 100)
+        pizza_id = str(uuid.uuid4())
         price = round(random.uniform(0.00, 10.00), 2)
         new_pizza = Pizza(
             pizza_id=pizza_id, price=price, user_id=user.id, **pizza_create.dict()
         )
-        pizza_database.append(new_pizza)
+        pizza_database.append(new_pizza.dict())
         return new_pizza
     except Exception:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            status_code=status.HTTP_406_NOT_ACCEPTABLE,
             detail="Something went wrong",
         )
 
@@ -46,7 +47,7 @@ def update_status_pizza(pizza: Annotated[Pizza, Depends(get_user_pizza_by_id)]):
     return {"message": f"Successfully update pizza with id {pizza.pizza_id}"}
 
 
-@app.delete("/pizzas/", status_code=status.HTTP_204_NO_CONTENT)
+@app.delete("/pizzas/{pizza_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_user_pizza(pizza: Annotated[Pizza, Depends(get_user_pizza_by_id)]):
     pizza_database.remove(pizza.dict())
     return None

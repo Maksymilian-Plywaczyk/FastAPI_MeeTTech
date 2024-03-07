@@ -1,6 +1,6 @@
 pizza_database = [
     {
-        "pizza_id": 1,
+        "pizza_id": "b4871a56-0996-42bd-a79d-9018d72ba092",
         "pizza_type": "MARGHERITA",
         "size": "S",
         "status": "Undone",
@@ -9,7 +9,7 @@ pizza_database = [
         "user_id": 1,
     },
     {
-        "pizza_id": 2,
+        "pizza_id": "c73837c2-a5e5-44cc-a352-085220e9b48b",
         "pizza_type": "PEPPERONI",
         "status": "Undone",
         "additional_info": None,
@@ -18,7 +18,7 @@ pizza_database = [
         "user_id": 2,
     },
     {
-        "pizza_id": 3,
+        "pizza_id": "b4871a56-0996-42bd-a79d-9018d72ba092",
         "pizza_type": "CAPRICCIOSA",
         "status": "Undone",
         "additional_info": None,
@@ -27,7 +27,7 @@ pizza_database = [
         "user_id": 1,
     },
     {
-        "pizza_id": 4,
+        "pizza_id": "534228d1-b02a-4783-ab1d-49f0f8378121",
         "pizza_type": "MARGHERITA",
         "status": "Undone",
         "additional_info": None,
@@ -36,7 +36,7 @@ pizza_database = [
         "user_id": 1,
     },
     {
-        "pizza_id": 5,
+        "pizza_id": "99357c45-ab8b-48e6-8464-05a3fcf9ca01",
         "pizza_type": "PEPPERONI",
         "status": "Undone",
         "additional_info": None,
@@ -49,16 +49,65 @@ pizza_database = [
 user_database = [
     {
         "id": 1,
-        "fullname": "User1",
+        "first_name": "User",
+        "last_name": "Example",
         "email": "user1@example.com",
         "hashed_password": "$2b$12$2DPOBDt3BJJtI2VHoc.izeO3en2E.V0TVxls.v3oe2yYktQGjwjjG",
-        "pizzas": [],
+        "pizzas": [
+            {
+                "pizza_id": "b4871a56-0996-42bd-a79d-9018d72ba092",
+                "pizza_type": "MARGHERITA",
+                "size": "S",
+                "status": "Undone",
+                "additional_info": None,
+                "price": 5.99,
+                "user_id": 1,
+            },
+            {
+                "pizza_id": "b4871a56-0996-42bd-a79d-9018d72ba092",
+                "pizza_type": "CAPRICCIOSA",
+                "status": "Undone",
+                "additional_info": None,
+                "size": "L",
+                "price": 9.99,
+                "user_id": 1,
+            },
+            {
+                "pizza_id": "534228d1-b02a-4783-ab1d-49f0f8378121",
+                "pizza_type": "MARGHERITA",
+                "status": "Undone",
+                "additional_info": None,
+                "size": "L",
+                "price": 8.99,
+                "user_id": 1,
+            },
+        ],
     },
     {
         "id": 2,
-        "fullname": "User2",
+        "first_name": "User2",
+        "last_name": "Example2",
         "email": "user2@example.com",
         "hashed_password": "$2b$12$gWcJR.pnzMITQ22e.uKQZeQcUN5rbcwvUvDK3h./i9tTc8C6tDdyq",
-        "pizzas": [],
+        "pizzas": [
+            {
+                "pizza_id": "c73837c2-a5e5-44cc-a352-085220e9b48b",
+                "pizza_type": "PEPPERONI",
+                "status": "Undone",
+                "additional_info": None,
+                "size": "M",
+                "price": 7.99,
+                "user_id": 2,
+            },
+            {
+                "pizza_id": "99357c45-ab8b-48e6-8464-05a3fcf9ca01",
+                "pizza_type": "PEPPERONI",
+                "status": "Undone",
+                "additional_info": None,
+                "size": "S",
+                "price": 6.98,
+                "user_id": 2,
+            },
+        ],
     },
 ]

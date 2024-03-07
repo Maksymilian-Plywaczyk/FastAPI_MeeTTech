@@ -5,7 +5,7 @@ from fastapi import Depends, HTTPException, status
 from typing import Annotated
 
 
-def get_pizza_by_id(pizza_id: int) -> Pizza:
+def get_pizza_by_id(pizza_id: str) -> Pizza:
     pizza = next(
         filter(lambda pizza: pizza["pizza_id"] == pizza_id, pizza_database), None
     )
@@ -18,7 +18,7 @@ def get_pizza_by_id(pizza_id: int) -> Pizza:
 
 
 def get_user_pizza_by_id(
-    pizza_id: int, user: Annotated[User, Depends(get_user)]
+    pizza_id: str, user: Annotated[User, Depends(get_user)]
 ) -> Pizza:
     try:
         pizza = next(
