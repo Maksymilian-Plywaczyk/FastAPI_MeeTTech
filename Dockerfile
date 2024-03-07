@@ -1,19 +1,14 @@
-FROM python:3.11-alpine3.16 as requirements-stage
-
-WORKDIR /tmp
-
-RUN pip install poetry
-COPY ./poetry.lock* ./pyproject.toml /tmp/
-
-RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
-
-FROM python:3.11-alpine3.16 as build-stage
+FROM python:3.12.2-alpine3.19
 
 WORKDIR /code
 
-COPY --from=requirements-stage /tmp/requirements.txt /code/requirements.txt
+RUN  pip install --no-cache-dir poetry
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY ./pyproject.toml ./poetry.lock* /code/
+
+RUN poetry config virtualenvs.create false
+
+RUN poetry install --no-dev --no-interaction
 
 COPY ./src /code/src
 
