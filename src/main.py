@@ -9,7 +9,7 @@ from .local_database import pizza_database
 from .helpers import get_pizza_by_id, get_user_pizza_by_id
 from .auth import auth_route, get_user
 
-app = FastAPI(title="Pizza delivery API")
+app = FastAPI(title="Pizza delivery API #MeeTTech")
 app.include_router(auth_route)
 
 
